@@ -1,8 +1,16 @@
+import json
 import boto3
+import os
 
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('orders')
+TABLE_NAME = os.environ['DYNAMODB_TABLE']
+table = dynamodb.Table(TABLE_NAME)
 
 def lambda_handler(event, context):
-    table.put_item(Item=event)
-    return event
+    order = event  # Input from Step Function
+    table.put_item(Item=order)
+    return {
+        'status': 'stored',
+        'orderId': order.get('orderId')
+    }
+ 
