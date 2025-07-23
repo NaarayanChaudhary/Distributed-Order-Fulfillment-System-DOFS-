@@ -11,16 +11,11 @@ resource "aws_codebuild_project" "dofs_project" {
     compute_type                = "BUILD_GENERAL1_SMALL"
     image                       = "aws/codebuild/standard:7.0"
     type                        = "LINUX_CONTAINER"
-    environment_variables = [
-      {
-        name  = "TF_VAR_region"
-        value = "us-east-1"
-      }
-    ]
   }
 
   source {
     type      = "CODEPIPELINE"
+    location  = "https://github.com/NaarayanChaudhary/Distributed-Order-Fulfillment-System-DOFS-"
     buildspec = "${path.module}/buildspec.yml"
   }
 }
