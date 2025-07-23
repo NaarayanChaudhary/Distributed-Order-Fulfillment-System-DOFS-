@@ -2,16 +2,18 @@ import json
 import boto3
 import os
 
-sqs = boto3.client('sqs')
-VALIDATION_QUEUE_URL = os.environ['VALIDATION_QUEUE_URL']
+stepfunctions = boto3.client('stepfunctions')
+STATE_MACHINE_ARN = os.environ['STATE_MACHINE_ARN']
 
 def lambda_handler(event, context):
     body = json.loads(event['body'])
-    response = sqs.send_message(
-        QueueUrl=VALIDATION_QUEUE_URL,
-        MessageBody=json.dumps(body)
+    
+    response = stepfunctions.start_execution(
+        stateMachineArn=STATE_MACHINE_ARN,
+        input=json.dumps(body)
     )
+    
     return {
         'statusCode': 200,
-        'body': json.dumps({'message': 'Order received and sent for validation'})
+        'body': json.dumps({'message': 'Order submitted successfully'})
     }

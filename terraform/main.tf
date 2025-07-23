@@ -13,10 +13,10 @@ module "sqs" {
 module "lambdas" {
   source                = "./modules/lambdas"
   lambda_exec_role      = aws_iam_role.lambda_exec.arn
-  api_handler_zip       = "${path.module}/../lambdas/api_handler.zip"
-  validator_zip         = "${path.module}/../lambdas/validator.zip"
-  order_storage_zip     = "${path.module}/../lambdas/order_storage.zip"
-  fulfill_order_zip     = "${path.module}/../lambdas/fulfill_order.zip"
+  api_handler_zip       = "${path.module}/../lambdas/api_handler/main.zip"
+  validator_zip         = "${path.module}/../lambdas/validator/main.zip"
+  order_storage_zip     = "${path.module}/../lambdas/order_storage/main.zip"
+  fulfill_order_zip     = "${path.module}/../lambdas/fulfill_order/main.zip"
   step_function_arn     = module.stepfunctions.order_orchestrator_arn
   orders_table_name     = module.dynamodb.orders_table_name
   failed_orders_table   = module.dynamodb.failed_orders_table_name

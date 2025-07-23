@@ -16,6 +16,12 @@ resource "aws_codepipeline" "dofs_pipeline" {
       provider         = "GitHub"
       version          = "1"
       output_artifacts = ["source_output"]
+            configuration = {
+        Owner      = "your-org"
+        Repo       = "your-repo"
+        Branch     = "master"
+        OAuthToken = var.github_token
+      }
     }
   }
 
