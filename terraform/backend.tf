@@ -1,23 +1,9 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
-module "api_gateway" {
-  source = "./modules/api_gateway"
-}
-
-module "lambdas" {
-  source = "./modules/lambdas"
-}
-
-module "stepfunctions" {
-  source = "./modules/stepfunctions"
-}
-
-module "dynamodb" {
-  source = "./modules/dynamodb"
-}
-
-module "sqs" {
-  source = "./modules/sqs"
+terraform {
+  backend "s3" {
+    bucket         = "terraform-state"
+    key            = "dofs/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-lock-table"
+  }
 }

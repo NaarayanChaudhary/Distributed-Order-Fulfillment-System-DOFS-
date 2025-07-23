@@ -1,3 +1,4 @@
+
 variable "lambda_exec_role" {
   description = "IAM role ARN for Lambda execution"
   type        = string

@@ -2,10 +2,13 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      python: 3.8
+    commands:
+      - curl -O https://releases.hashicorp.com/terraform/1.7.5/terraform_1.7.5_windows_amd64.zip
+      - unzip terraform_1.7.5_windows_amd64.zip
+      - mv terraform.exe /usr/local/bin/terraform
   build:
     commands:
+      - terraform --version
       - terraform init
       - terraform plan
       - terraform apply -auto-approve
